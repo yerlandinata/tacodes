@@ -15,6 +15,7 @@ class PPMI:
     SKIPGRAM_COUNT_DUMP = 'skipgram.json'
     WORD_WORD_SPARSE_DUMP = 'wwcnt_sparse.npz'
     PPMI_DUMP = 'ppmi_sparse.npz'
+    UNIGRAM_COUNT_DUMP = 'unigram.json'
 
     def __init__(self, window_size=5, work_dir=None, verbose=False, stemmer=stem):
         if work_dir is not None and work_dir[-1] != '/':
@@ -94,8 +95,8 @@ class PPMI:
         for token, count in unigram_counts.most_common():
             self.__tok2indx[token] = len(self.__indx2tok)
             self.__indx2tok.append(token)
-        # with open(self.__wd + 'unigram_counts.json', 'w') as f:
-        #     json.dump(unigram_counts, f)
+        with open(self.__wd + PPMI.UNIGRAM_COUNT_DUMP, 'w') as f:
+            json.dump(unigram_counts, f)
         del unigram_counts
         with open(self.__wd + PPMI.TOKEN_TO_INDEX_DUMP, 'w') as f:
             json.dump(self.__tok2indx, f)
