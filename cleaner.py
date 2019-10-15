@@ -19,7 +19,8 @@ def stem_if_not_noun(lexicon, word):
     return word
 
 def is_valid_word(word):
-    count_alphas = 0
+    count_non_alphas = len([c for c in word if not c.isalpha()])
+    is_alphas_dominant = len(word) > 3 * count_non_alphas
     has_digit = any(c.isdigit() for c in word)
     has_strange_char = any(c in PUNCTUATION for c in word)
-    return not has_digit and not has_strange_char
+    return not has_digit and not has_strange_char and is_alphas_dominant
