@@ -74,8 +74,8 @@ class Lexicon():
 
 class LexiconEntry():
     def __init__(self, word, pos, lemma):
-        self.word = word.lower()
-        self.lemma = lemma.lower() if lemma is not None else None
+        self.word = word.lower().strip()
+        self.lemma = lemma.lower().strip() if lemma is not None else None
         self.pos = pos
 
     def copy(self):
