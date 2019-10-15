@@ -168,6 +168,9 @@ class PPMI:
         sum_over_words = np.array(self.__wwcnt_mat.sum(axis=0)).flatten()
         sum_over_contexts = np.array(self.__wwcnt_mat.sum(axis=1)).flatten()
 
+        # we do not need this anymore from now on
+        del self.__wwcnt_mat
+
         ii = 0
         total_skipgrams = len(self.__skipgram_counts)
 
@@ -193,6 +196,9 @@ class PPMI:
             row_indxs.append(tok1_indx)
             col_indxs.append(tok2_indx)
             ppmi_dat_values.append(ppmi)
+
+        # we do not need this too from now on
+        del self.__skipgram_counts
 
         self.verbose('Saving ppmi sparse matrix...')
         self.__ppmi_mat = sparse.csr_matrix((ppmi_dat_values, (row_indxs, col_indxs)))
