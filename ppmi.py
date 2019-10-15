@@ -41,7 +41,7 @@ class PPMI:
                     str(datetime.datetime.now() - self.__start_time).split('.')[0]
                 ) if self.__start_time is not None else '',
                 ' ' * 100,
-                end='\r', flush=True
+                end='', flush=True
             )
 
     def fit(self, corpus, work_dir='ppmi/'):
