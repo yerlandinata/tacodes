@@ -13,10 +13,10 @@ def stem_if_not_noun(lexicon, word):
     try:
         lexicon_entry = lexicon.get_entry(word)
     except KeyError:
-        return word
+        return word.lower()
     if lexicon_entry.pos != 'Nomina' and lexicon_entry.lemma is not None:
         return lexicon_entry.lemma
-    return word
+    return word.lower()
 
 def is_valid_word(word):
     count_non_alphas = len([c for c in word if not c.isalpha()])
