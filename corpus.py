@@ -1,10 +1,7 @@
-from .lexicon import Lexicon
-
-LEXICON = Lexicon()
-
 class Corpus:
-    def __init__(self, src='wikipedia-dump-compiled/wikicorpus.tsv'):
+    def __init__(self, lexicon, src='wikipedia-dump-compiled/wikicorpus.tsv'):
         self.__src = src
+        self.__lexicon = lexicon
 
     def get_all_entries(self):
         return CorpusIterator(self.__src)
@@ -47,7 +44,7 @@ class CorpusEntry:
     
     def get_lexical_class_tagged(self):
         if self.__lex_tagged is None:
-            self.__lex_tagged = LEXICON.tag_sentence(self.__sentence)
+            self.__lex_tagged = self.__lexicon.tag_sentence(self.__sentence)
         return self.__lex_tagged
 
     def get_source_document(self):
