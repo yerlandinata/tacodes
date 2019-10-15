@@ -2,7 +2,7 @@ import string
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 STEMMER = StemmerFactory().create_stemmer()
-PUNCTUATION = string.punctuation.replace('_', '')
+PUNCTUATION = string.punctuation.replace('_', '').replace('-', '')
 
 def stem(word):
     if '_' in word: # MWE
