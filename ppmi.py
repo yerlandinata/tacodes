@@ -16,13 +16,14 @@ class PPMI:
     WORD_WORD_SPARSE_DUMP = 'wwcnt_sparse.npz'
     PPMI_DUMP = 'ppmi_sparse.npz'
 
-    def __init__(self, window_size=5, work_dir=None, verbose=False):
+    def __init__(self, window_size=5, work_dir=None, verbose=False, stemmer=stem):
         if work_dir is not None and work_dir[-1] != '/':
             work_dir += '/'
         self.__wd = work_dir
         self.is_verbose = verbose
         self.__start_time = None
         self.__window_size = window_size
+        self.__stem = stem
         if work_dir is not None:
             with open(self.__wd + PPMI.TOKEN_TO_INDEX_DUMP, 'r') as f:
                 self.__tok2indx = json.load(f)
@@ -198,8 +199,8 @@ class PPMI:
         self.verbose('Saved ppmi sparse matrix.')
 
     def get_ppmi(self, w1, w2):
-        encoded_w1 = self.encode_token(stem(w1))
-        encoded_w2 = self.encode_token(stem(w2))
+        encoded_w1 = self.encode_token(self.__stem(w1))
+        encoded_w2 = self.encode_token(self.__stem(w2))
         return self.__ppmi_mat[encoded_w1,encoded_w2]
 
     def encode_token(self, token):

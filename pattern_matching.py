@@ -72,9 +72,9 @@ def worker_watcher():
     while True:
         elapsed_time = str(datetime.datetime.now() - start_time).split('.')[0]
         print(
-            'Entries: {}/{} | pairs: {} | {}'.format(
+            '\rEntries: {}/{} | pairs: {} | {}'.format(
                 processed_entries.value, target, collected_pairs_count.value, elapsed_time
-            ), end='\r', flush=True
+            ), end='', flush=True
         )
         if processed_entries.value == target:
             with open('{}_experiment{}.json'.format(int(time.time()), EXPERIMENT_NAME), 'w') as f:
