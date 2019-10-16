@@ -44,7 +44,7 @@ class Validator:
         recall = tp/(tp+fn)
         accuracy = (tp+tn)/(tp+tn+fp+fn)
         f1 = 2*precision*recall/(precision+recall)
-        report += 'TP: {} | TN: {} | FP: {} | FN: {} |\n PRECISION: {} | RECALL: {} | ACCURACY: {} | F1: {} |\n'.format(
+        report = 'TP: {} | TN: {} | FP: {} | FN: {} |\n PRECISION: {} | RECALL: {} | ACCURACY: {} | F1: {} |\n'.format(
             tp, tn, fp, fn, precision, recall, (tp+tn)/(tp+tn+fp+fn), f1
         ) + report
         return report
