@@ -61,7 +61,7 @@ class HypernymyRelation:
 
         
     def __str__(self):
-        return '({}, {})'.format(self.hypernym, self.hyponym) + ' <- {}'.format(self.source) if self.source else ''
+        return '({}, {})'.format(self.hypernym, self.hyponym) + (' <- {}'.format(self.source) if self.source else '')
     
     def __repr__(self):
         return self.__str__()
