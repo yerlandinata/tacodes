@@ -47,6 +47,5 @@ class Validator:
         report += 'TP: {} | TN: {} | FP: {} | FN: {} |\n PRECISION: {} | RECALL: {} | ACCURACY: {} | F1: {} |\n'.format(
             tp, tn, fp, fn, precision, recall, (tp+tn)/(tp+tn+fp+fn), f1
         ) + report
-        print(report)
         return report
 
