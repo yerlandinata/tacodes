@@ -4,10 +4,11 @@ class Corpus:
         self.__lexicon = lexicon
 
     def get_all_entries(self):
-        return CorpusIterator(self.__src)
+        return CorpusIterator(self.__src, lexicon)
 
 class CorpusIterator:
-    def __init__(self, src):
+    def __init__(self, src, lexicon):
+        self.__lexicon = lexicon
         self.__src = open(src, 'r')
 
     def __iter__(self):
@@ -18,14 +19,15 @@ class CorpusIterator:
         if line == '':
             raise StopIteration
         else:
-            return CorpusEntry(line)
+            return CorpusEntry(line, lexicon)
 
 class CorpusEntry:
-    def __init__(self, line):
+    def __init__(self, line, lexicon):
         try:
             identifier, self.__sentence = line.split('\t')
         except ValueError:
             raise ValueError('Invalid entry: ' + line)
+        self.__lexicon = lexicon
         self.__source_document = ' '.join(identifier.split('_')[:-1])
         self.__sentence_id = identifier.split('-')[-1]
         self.__lex_tagged = None
