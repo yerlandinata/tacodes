@@ -4,7 +4,7 @@ class Corpus:
         self.__lexicon = lexicon
 
     def get_all_entries(self):
-        return CorpusIterator(self.__src, lexicon)
+        return CorpusIterator(self.__src, self.__lexicon)
 
 class CorpusIterator:
     def __init__(self, src, lexicon):
