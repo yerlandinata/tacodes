@@ -19,7 +19,7 @@ class CorpusIterator:
         if line == '':
             raise StopIteration
         else:
-            return CorpusEntry(line, lexicon)
+            return CorpusEntry(line, self.__lexicon)
 
 class CorpusEntry:
     def __init__(self, line, lexicon):
