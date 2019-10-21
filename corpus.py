@@ -1,10 +1,14 @@
+from .utils import pipe
+
 class Corpus:
     def __init__(self, lexicon, src='wikipedia-dump-compiled/wikicorpus.tsv'):
         self.__src = src
         self.__lexicon = lexicon
 
-    def get_all_entries(self):
-        return CorpusIterator(self.__src, self.__lexicon)
+    def get_all_entries(self, preprocessors=None):
+        if preprocessors is None:
+            return CorpusIterator(self.__src, self.__lexicon)
+        return PreprocessedCorpusIterator(self.__src, self.__lexicon, preprocessors)
 
 class CorpusIterator:
     def __init__(self, src, lexicon):
@@ -20,6 +24,23 @@ class CorpusIterator:
             raise StopIteration
         else:
             return CorpusEntry(line, self.__lexicon)
+
+class PreprocessedCorpusIterator:
+    def __init__(self, src, lexicon, preprocessors):
+        self.__lexicon = lexicon
+        self.__src = open(src, 'r')
+        self.__preprocessors = preprocessors
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        line = self.__src.readline()
+        if line == '':
+            raise StopIteration
+        else:
+            entry = CorpusEntry(line, self.__lexicon)
+            return pipe(*self.__preprocessors)(entry.get_sentence())
 
 class CorpusEntry:
     def __init__(self, line, lexicon):
