@@ -21,9 +21,9 @@ ALPHABETS_ONLY = re.compile('^[a-zA-Z\_]+$')
 with open('lexicon/hypernym_ignore.txt', 'r') as f:
     HYPERNYM_IGNORE = f.read().split('\n')
 
-def pos_tag(s):
+def pos_tag(s, tagger_dir='indonesian-postag'):
     wd = os.getcwd()
-    os.chdir('indonesian-postag')
+    os.chdir(tagger_dir)
     result = subprocess.check_output(['bash', 'tag.sh', '-raw', s])
     os.chdir(wd)
     result = result.decode().replace('\t', '/').replace('\n', ' ')
