@@ -70,5 +70,15 @@ class CorpusEntry:
             self.__lex_tagged = self.__lexicon.tag_sentence(self.__sentence)
         return self.__lex_tagged
 
+    def get_postag_tokenized(self):
+        res = []
+        temp = ''
+        for token in self.get_sentence().strip().split():
+            temp += ' ' + token
+            if '/' in temp:
+                res.append(temp[1:])
+                temp = ''
+        return res
+
     def get_source_document(self):
         return self.__source_document
