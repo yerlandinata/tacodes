@@ -52,6 +52,7 @@ class CorpusEntry:
         self.__source_document = ' '.join(identifier.split('_')[:-1])
         self.__sentence_id = identifier.split('-')[-1]
         self.__lex_tagged = None
+        self.__original_identifier = identifier
 
     def __str__(self):
         return '({}) {}'.format(self.get_id(), self.__sentence)
