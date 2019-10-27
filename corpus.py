@@ -83,3 +83,6 @@ class CorpusEntry:
 
     def get_source_document(self):
         return self.__source_document
+
+    def get_original_identifier(self):
+        return self.__original_identifier
