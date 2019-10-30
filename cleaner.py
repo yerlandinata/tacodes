@@ -29,4 +29,4 @@ def is_valid_word(word):
     count_punc = len([c for c in word if c in string.punctuation])
     count_digit = len(list(filter(str.isdigit, word)))
     count_alpha = len(list(filter(str.isalpha, word)))
-    return len(word) > 5 * count_punc and (count_alpha * count_digit == 0 or count_digit == 1)
+    return (len(word) > 5 * count_punc or count_punc == 1) and (count_alpha * count_digit == 0 or count_digit == 1)
