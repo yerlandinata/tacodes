@@ -26,6 +26,8 @@ def is_valid_mwe(word):
     return not has_digit and not has_strange_char and is_alphas_dominant
 
 def is_valid_word(word):
+    if '//' in word:
+        return False
     count_punc = len([c for c in word if c in string.punctuation])
     count_digit = len(list(filter(str.isdigit, word)))
     count_alpha = len(list(filter(str.isalpha, word)))
