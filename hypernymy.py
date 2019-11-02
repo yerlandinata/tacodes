@@ -1,6 +1,7 @@
 import re
 import os
 import subprocess
+from .corpus import CorpusEntry
 from .lexicon import Lexicon
 from nltk.tokenize import word_tokenize
 
@@ -15,7 +16,8 @@ TYPE_PATTERN = r'[a-z]+\/Jenis(?: dari\/Preposisi)*'
 ANY_PATTERN = r'[a-zA-Z\_]+\/[A-Z][a-z]*'
 ANY_NON_NOUN_PATTERN = r'[a-zA-Z\_]+\/(?:(?!(?:Nomina| )).)*'
 INSTANCE_CAPTURE = r'([a-zA-Z\_]+)\/(?:Nomina)(?!(?:[A-Z]))'
-ALPHABETS_ONLY = re.compile('^[a-zA-Z\_]+$')
+ALPHABETS_ONLY = re.compile(r'^[a-zA-Z\_]+$')
+FAMRASHEL_POSTAG = re.compile(r'\/[A-Z]+\,*[A-Z]*')
 # space is used for MWEs
 
 with open('lexicon/hypernym_ignore.txt', 'r') as f:
@@ -107,7 +109,13 @@ class HypernymyPattern:
         return re.compile(result)
 
 
-    def match(self, entry):
+    def match(self, entry, is_entry_postagged=False):
+        if is_entry_postagged:
+            sentence = entry.get_sentence()
+            sentence = sentence.replace('/NNP', '/nomina').replace('/NN', '/nomina')
+            sentence = FAMRASHEL_POSTAG.sub('', sentence)
+            sentence = sentence.replace('/nomina', '/Nomina')
+            entry = CorpusEntry('{}\t{}'.format(entry.get_original_identifier(), sentence))
         match_obj = self.regex_pattern.search(entry.get_lexical_class_tagged())
         if match_obj is not None:
             hypernyms = []
