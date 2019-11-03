@@ -26,6 +26,9 @@ class Lexicon():
             for line in f.readlines():
                 self.__types.add(line.strip())
 
+    def get_copula(self):
+        return self.__copula
+
     def get_entry(self, word):
         return self.__entries[word].copy()
 
