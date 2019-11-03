@@ -29,6 +29,9 @@ class Lexicon():
     def get_copula(self):
         return self.__copula
 
+    def get_types(self):
+        return self.__types
+
     def get_entry(self, word):
         return self.__entries[word].copy()
 
