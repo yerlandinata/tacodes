@@ -115,7 +115,7 @@ class HypernymyPattern:
             sentence = sentence.replace('/NNP', '/nomina').replace('/NN', '/nomina')
             sentence = FAMRASHEL_POSTAG.sub('', sentence)
             sentence = sentence.replace('/nomina', '/Nomina')
-            entry = CorpusEntry('{}\t{}'.format(entry.get_original_identifier(), sentence))
+            entry = CorpusEntry('{}\t{}'.format(entry.get_original_identifier(), sentence), entry._CorpusEntry__lexicon)
         match_obj = self.regex_pattern.search(entry.get_lexical_class_tagged())
         if match_obj is not None:
             hypernyms = []
