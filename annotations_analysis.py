@@ -5,13 +5,27 @@ class Annotation:
         annotator_id, annotator, w1, w2, relation, gold_standard_relation, annotator_time_ms = list(map(str.strip, dump_line.split('|')))
         return Annotation(annotator + '_' + annotator_id, w1, w2, relation, gold_standard_relation if gold_standard_relation != '' else None, int(annotator_time_ms))
     
-    def __init__(self, annotator, w1, w2, relation, gold_standard_relation, annotator_time_ms):
+    @staticmethod
+    def from_dump_with_timestamp(dump_line):
+        annotator_id, annotator, w1, w2, relation, gold_standard_relation, annotator_time_ms, ts = list(map(str.strip, dump_line.split('|')))
+        return Annotation(
+            annotator + '_' + annotator_id,
+            w1,
+            w2,
+            relation,
+            gold_standard_relation if gold_standard_relation != '' else None, 
+            int(annotator_time_ms),
+            timestamp=ts
+        )
+
+    def __init__(self, annotator, w1, w2, relation, gold_standard_relation, annotator_time_ms, timestamp=None):
         self.annotator = annotator
         self.w1 = w1
         self.w2 = w2
         self.relation = relation
         self.gold_standard_relation = gold_standard_relation
         self.annotator_time_ms = annotator_time_ms
+        self.timestamp = timestamp
         
     def is_valid(self):
         return self.annotator_time_ms >= 1000
