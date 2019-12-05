@@ -7,7 +7,7 @@ class Annotation:
     
     @staticmethod
     def from_dump_with_timestamp(dump_line):
-        annotator_id, annotator, w1, w2, relation, gold_standard_relation, annotator_time_ms, ts = list(map(str.strip, dump_line.split('|')))
+        annotator_id, annotator, _, w1, w2, relation, gold_standard_relation, annotator_time_ms, ts = list(map(str.strip, dump_line.split('|')))
         return Annotation(
             annotator + '_' + annotator_id,
             w1,
