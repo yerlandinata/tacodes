@@ -13,12 +13,12 @@ class PatternMatcher:
                 tokens = []
                 for token in line:
                     if token == HYPERNYM_TAG or token == HYPONYM_TAG:
-                        tokens.append(re.compile(r'([a-zA-Z\_]+)\/(?:NN)(?!(?:[A-Z]))'))
+                        tokens.append(re.compile(r'([a-zA-Z\s]+)\/(?:NN)(?!(?:[A-Z]))'))
                     else:
                         tokens.append(re.compile(token + r'\/[A-Z]+'))
                     self.original_patterns[tokens[-1]] = line
-
-        self.patterns.sort(reverse=True)
+                self.patterns.append(' '.join(tokens))
+        self.patterns = sorted(self.patterns, key=lambda p: -p.count(' '))
     
     def match(self, postagged):
         for p in self.patterns:
