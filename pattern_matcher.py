@@ -19,11 +19,11 @@ class PatternMatcher:
             tokens = []
             for token in p:
                 if token == HYPERNYM_TAG or token == HYPONYM_TAG:
-                    tokens.append(re.compile(r'([a-zA-Z\s]+)\/(?:NN)(?!(?:[A-Z]))'))
+                    tokens.append(('([a-zA-Z\s]+)\/(?:NN)(?!(?:[A-Z]))'))
                 else:
-                    tokens.append(re.compile(token + r'\/[A-Z]+'))
+                    tokens.append(token + r'\/[A-Z]+')
                 self.original_patterns[tokens[-1]] = p
-            self.patterns.append(' '.join(tokens))
+            self.patterns.append(re.compile(' '.join(tokens)))
 
     
     def match(self, postagged):
